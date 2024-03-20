@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Line Drawing</title>
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canv">
+
+    </canvas>
+    <script>
+        let canvas = document.querySelector("#canv");
+        let ctx = canvas.getContext("2d")
+        ctx.fillStyle = "red"
+        ctx.fillRect(0, 0, 100, 100)
+
+        class Vertex2{
+            constructor(x,y){
+                this.x = x
+                this.y = y
+            }
+        }
+
+        class Edge{
+            constructor(vertexOne, vertexTwo){
+                this.vertexOne = vertexOne;
+                this.vertexTwo = vertexTwo;
+            }
+            getTangent(){
+                
+            }
+        }
+
+        /**
+         * This has to be counter clockwise
+         */
+        class Triangle{
+            constructor(vertexOne, vertexTwo, vertexThree){
+                this.vertexOne = vertexOne
+                this.vertexTwo = vertexTwo
+                this.vertexThree = vertexThree
+            }
+        }
+
+
+        class Pixel{
+            constructor(x,y,r,g,b){
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.g = g;
+                this.b = b;
+            }
+        }
+
+        let zBuffer = []
+
+        let bufferWidth = 100
+        let bufferHeight = 100
+
+        for (let x = 0; x < bufferWidth; x++) {
+            let col = []
+            for (let y = 0; y < bufferHeight; y++) {
+                col.push(new Pixel(x,y,0,0,0))
+            }
+            zBuffer.push(col)
+        }
+
+        //Magic
+
+        let vertexOne = new Vertex2(0,0)
+        let vertexTwo = new Vertex2(20,7)
+        let edge = new Edge(vertexOne,vertexTwo)
+
+
+
+
+        // Draw the buffer
+
+        for(let x = 0; x < bufferWidth; x++){
+            for(let y = 0; y < bufferHeight; y++){
+                let pixel = zBuffer[x][y]
+                ctx.fillStyle = `rgb(${pixel.r},${pixel.g},${pixel.b})`;
+                ctx.fillRect(pixel.x,pixel.y,1,1)
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
